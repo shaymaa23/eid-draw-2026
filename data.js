@@ -1,0 +1,22 @@
+const drawResults = {
+    "2KfZhdmK": "2YbZiNix2Kk=",
+    "2YbZiNix2Kk=": "2K/Zitin2YTYpw==",
+    "2KfZhdmE": "2KfZhdmK",
+    "2YfZhtiv": "2LPZhNin2YE=",
+    "2YXZhtmJ": "2YbZiNmB",
+    "2KfZitmF2KfZhg==": "2LTZitmF2KfYoQ==",
+    "2YbZiNix2Yo=": "2KfZitmF2KfZhg==",
+    "2LTZh9iv": "2YXZhtmJ",
+    "2LTZitmF2KfYoQ==": "2LPYp9ix2Kc=",
+    "2LPZhtiv2LM=": "2KfZhdmE",
+    "2LHZitmG2KfYrw==": "2YbZiNix2Yo=",
+    "2YbZiNmB": "2LTZh9iv",
+    "2LPZhNin2YE=": "2LPZgdin2YbYpw==",
+    "2LPZgdin2YbYpw==": "2LPZhtiv2LM=",
+    "2LPYp9ix2Kc=": "2LHZitmG2KfYrw==",
+    "2K/Zitin2YTYpw==": "2YfZhtiv",
+    "2KrYsdmB": "2YrZiNiz2YE=",
+    "2YbYrNmI2K8=": "2KrYsdmB",
+    "2YrZiNiz2YE=": "2YbZiNin2YE=",
+    "2YbZiNin2YE=": "2YbYrNmI2K8="
+};

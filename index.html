@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 قرعة العيد العائلية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d3436;
+            --accent: #d63031;
+            --gold: #f1c40f;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 18px;
+            font-family: inherit;
+            box-sizing: border-box;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #b71c1c;
+        }
+
+        #result-container {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .receiver-name {
+            font-size: 32px;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 15px 0;
+            border: 3px dashed var(--gold);
+            padding: 20px;
+            border-radius: 15px;
+            background: #fffcf0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="main-ui">
+            <h1>🎁 قرعة العيد</h1>
+            <p>أدخل اسمك لمعرفة من ستُهدي</p>
+            <input type="text" id="nameInput" placeholder="اكتب اسمك هنا...">
+            <button onclick="revealResult()">اسحب ✨</button>
+        </div>
+
+        <div id="result-container">
+            <div style="font-size: 60px;">🎉</div>
+            <p>يا هلا! الشخص الذي ستُهديه هو:</p>
+            <div class="receiver-name" id="receiverName"></div>
+            <button onclick="location.reload()" style="background: #636e72; margin-top: 15px; font-size: 14px;">إغلاق
+                النتيجة 🔒</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+
+    <script>
+        // وظيفة فك تشفير النصوص العربية (Base64) بشكل آمن للمتصفح
+        function decodeB64(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
+
+        function normalize(text) {
+            return text.trim().replace(/[أإآا]/g, "ا").replace(/[ةه]/g, "ه");
+        }
+
+        function revealResult() {
+            const inputRaw = document.getElementById('nameInput').value;
+            const inputNorm = normalize(inputRaw);
+
+            if (!inputNorm) {
+                alert("يرجى كتابة اسمك أولاً.");
+                return;
+            }
+
+            let foundReceiver = null;
+
+            // المرور على البيانات المشفرة في data.js
+            for (let giverEncoded in drawResults) {
+                // فك تشفير اسم الشخص العاطي للمقارنة
+                let giverDecoded = decodeB64(giverEncoded);
+
+                if (normalize(giverDecoded) === inputNorm) {
+                    // فك تشفير اسم الشخص المستلم لإظهاره
+                    foundReceiver = decodeB64(drawResults[giverEncoded]);
+                    break;
+                }
+            }
+
+            if (foundReceiver) {
+                document.getElementById('main-ui').style.display = 'none';
+                document.getElementById('result-container').style.display = 'block';
+                document.getElementById('receiverName').innerText = foundReceiver;
+            } else {
+                alert("الاسم غير موجود! تأكد من كتابة الاسم كما هو في القائمة.");
+            }
+        }
+    </script>
+</body>
+
+</html>
